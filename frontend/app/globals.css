@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-bg text-ink antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    @apply bg-accent/20;
+  }
+
+  :focus-visible {
+    outline: 2px solid #2e5cff;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* Signature element: the "print ticket" — a receipt-style card with a
+     perforated top edge and a torn bottom edge, echoing a physical printout. */
+  .ticket {
+    position: relative;
+    background: #fff;
+    border-radius: 0 0 20px 20px;
+  }
+
+  .ticket::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background-image: radial-gradient(
+      circle at 10px 0,
+      transparent 6px,
+      #f6f7fa 6.5px
+    );
+    background-size: 20px 10px;
+    background-repeat: repeat-x;
+    transform: translateY(-1px);
+  }
+
+  .ticket-divider {
+    border-top: 2px dashed #e5e8ec;
+    position: relative;
+  }
+
+  .ticket-divider::before,
+  .ticket-divider::after {
+    content: "";
+    position: absolute;
+    top: -8px;
+    width: 16px;
+    height: 16px;
+    background: #f6f7fa;
+    border-radius: 999px;
+  }
+
+  .ticket-divider::before {
+    left: -24px;
+  }
+
+  .ticket-divider::after {
+    right: -24px;
+  }
+
+  .noise-surface {
+    background-image: radial-gradient(#e5e8ec 0.6px, transparent 0.6px);
+    background-size: 14px 14px;
+  }
+
+  .bottom-cta-safe {
+    padding-bottom: calc(96px + env(safe-area-inset-bottom));
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
